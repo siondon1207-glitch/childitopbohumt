@@ -1,23 +1,684 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+    
+    :root {
+      --bg-color: #fbfbfa;
+      --card-bg: #ffffff;
+      --primary-color: #1e293b;
+      --secondary-color: #2563eb;
+      --accent-color: #e11d48;
+      --highlight-bg: #fef3c7;
+      --highlight-text: #92400e;
+      --text-main: #374151;
+      --text-muted: #6b7280;
+      --border-color: #e5e7eb;
+      --table-header-bg: #f8fafc;
+    }
+    
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.85;
+      margin: 0;
+      padding: 0;
+      color: var(--text-main);
+      background-color: var(--bg-color);
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    header {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #ffffff;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.05em;
+      line-height: 1.3;
+    }
+    
+    header p {
+      font-size: 1.15rem;
+      font-weight: 300;
+      opacity: 0.95;
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+    }
+    
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background-color: var(--accent-color);
+    }
+    
+    nav.toc-container {
+      max-width: 900px;
+      margin: -30px auto 40px auto;
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-color);
+      position: relative;
+      z-index: 10;
+    }
+    
+    nav.toc-container h2 {
+      font-size: 1.25rem;
+      color: var(--primary-color);
+      margin-top: 0;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    
+    nav.toc-container ol {
+      padding-left: 20px;
+      margin: 0;
+    }
+    
+    nav.toc-container li {
+      margin-bottom: 8px;
+    }
+    
+    nav.toc-container a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    nav.toc-container a:hover {
+      text-decoration: underline;
+    }
+    
+    section {
+      padding: 50px 24px;
+      max-width: 900px;
+      margin: 0 auto 30px auto;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      border: 1px solid var(--border-color);
+    }
+    
+    section h2 {
+      color: var(--primary-color);
+      font-size: 1.85rem;
+      font-weight: 700;
+      border-bottom: 3px solid var(--secondary-color);
+      padding-bottom: 12px;
+      margin-top: 0;
+      margin-bottom: 25px;
+      letter-spacing: -0.03em;
+    }
+    
+    section h3 {
+      color: var(--secondary-color);
+      font-size: 1.4rem;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    p {
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-align: justify;
+    }
+    
+    .keyword-highlight {
+      background-color: var(--highlight-bg);
+      color: var(--highlight-text);
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    
+    ul, ol {
+      padding-left: 24px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    
+    li {
+      margin-bottom: 10px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+      margin-bottom: 25px;
+      font-size: 0.95rem;
+    }
+    
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 14px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: var(--table-header-bg);
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    td {
+      background-color: var(--card-bg);
+    }
+    
+    blockquote {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--secondary-color);
+      margin: 25px 0;
+      padding: 20px;
+      border-radius: 0 8px 8px 0;
+    }
+    
+    blockquote p {
+      margin: 0;
+      font-style: normal;
+      color: var(--text-main);
+    }
+    
+    .calculator-container {
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+    
+    .calculator-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+    
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      gap: 15px;
+    }
+    
+    .form-col {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .form-col label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--primary-color);
+      font-size: 0.9rem;
+    }
+    
+    .form-col select,
+    .form-col input[type="text"],
+    .form-col input[type="tel"],
+    .form-col input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      background-color: #ffffff;
+      box-sizing: border-box;
+    }
+    
+    .checkbox-group {
+      margin-bottom: 20px;
+    }
+    
+    .checkbox-group label {
+      display: block;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+    
+    .checkbox-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+    
+    .checkbox-item input {
+      margin-right: 10px;
+    }
+    
+    .btn-submit {
+      background-color: var(--secondary-color);
+      color: #ffffff;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+    }
+    
+    .btn-submit:hover {
+      background-color: #1d4ed8;
+    }
+    
+    .external-links-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    .external-links-list li {
+      margin-bottom: 15px;
+      padding: 15px;
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    
+    .external-links-list a {
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .external-links-list a:hover {
+      text-decoration: underline;
+    }
+    
+    .external-links-list p {
+      margin: 5px 0 0 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    
+    footer {
+      background-color: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 40px 24px;
+      font-size: 0.85rem;
+      border-top: 1px solid #1e293b;
+    }
+    
+    footer p {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      section {
+        padding: 30px 20px;
+      }
+      .form-row {
+        flex-direction: column;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "2026년 고등학생보험 청소년 보험 비교 및 예상 비용 가이드",
+    "description": "고등학생보험의 종류와 연령별(17세, 18세, 19세) 예상 보험료, 장단점 및 브랜드별 혜택을 상세히 비교 분석합니다.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "청소년보험 통합 분석 가이드"
+    },
+    "mainEntity": {
+      "@type": "Article",
+      "headline": "고등학생보험 청소년 보험 비교 및 예상 비용 가이드",
+      "datePublished": "2026-01-15",
+      "dateModified": "2026-08-06",
+      "author": {
+        "@type": "Organization",
+        "name": "청소년보험 전문 컨설팅 센터"
+      }
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <header>
+    <h1>2026년 고등학생보험 완벽 분석: <br>청소년 연령별 보험 가격 비교 및 최적의 설계 비법</h1>
+    <p>17세부터 19세까지 고등학교 재학 시기 맞춤형 설계. 자녀의 건강과 안전을 지키는 가장 합리적인 다이렉트 추천 상품 분석을 제공합니다.</p>
+  </header>
+
+  <nav class="toc-container">
+    <h2>목차: 고등학생보험 핵심 정보</h2>
+    <ol>
+      <li><a href="#section-intro">고등학생보험 왜 필요한가? (2026년 시장 동향 및 필요성)</a></li>
+      <li><a href="#section-types">청소년 실비보험 및 종합보험 종류와 보장 범위</a></li>
+      <li><a href="#section-comparison">어린이보험 vs 성인보험 차이점 및 고등학생 전환 분석</a></li>
+      <li><a href="#section-costs">연령별(17세, 18세, 19세) 평균 보험료 및 예상 금액 비교</a></li>
+      <li><a href="#section-brands">주요 보험 브랜드별 순위 및 혜택 집중 비교</a></li>
+      <li><a href="#section-calculator">실시간 예상 보험 요금 계산기 및 무료 상담 신청</a></li>
+      <li><a href="#section-tips">가장 저렴한곳 찾는 법 및 신규 가입 꿀팁</a></li>
+      <li><a href="#section-community">커뮤니티(디시, 펨코, 보배드림) 여론 및 내돈내산 후기</a></li>
+      <li><a href="#section-faq">자주 묻는 질문(FAQ) 및 전문가 컨설팅 조언</a></li>
+      <li><a href="#section-references">신뢰할 수 있는 외부 공인 정보 사이트</a></li>
+    </ol>
+  </nav>
+
+  <section id="section-intro">
+    <h2>고등학생보험 왜 필요한가? (2026년 시장 동향 및 필요성)</h2>
+    <p>고등학교 시절은 아동기에서 성인기로 넘어가는 급격한 신체적, 정신적 과도기입니다. 2026년 현재 청소년들의 야외 활동 및 체육 활동 증가, 학업 스트레스로 인한 불규칙한 식습관, 스마트폰 장시간 사용으로 인한 거북목 증후군 및 안과 질환 등 새로운 위험 요인들이 부각되고 있습니다. 이에 따라 많은 학부모들이 자녀를 위해 <span class="keyword-highlight">고등학생보험</span> 가입을 고민하며 전문 컨설팅을 신청하고 있습니다.</p>
+    
+    <p>특히 고등학교 1학년(17세), 2학년(18세), 3학년(19세) 시기는 급격한 성장과 더불어 활동 반경이 넓어지면서 자전거 사고, 전동 킥보드 접촉 사고 등 다양한 생활 밀착형 상해 위험에 쉽게 노출됩니다. 또한 최근 소아청소년 비만율 상승과 함께 이른 나이에 고혈압이나 당뇨 등 만성 질환의 징후가 나타나기도 하며, 심각하게는 청소년 암 발생률도 무시할 수 없는 수준에 이르렀습니다. 이러한 복합적인 상황 속에서 자녀에게 발생할 수 있는 갑작스러운 질병이나 상해 사고 시 의료비 공백을 최소화하기 위한 안전장치로서 보험 준비는 필수적입니다.</p>
+    
+    <p>최근에는 자녀의 보험 리모델링을 위해 유튜브, 인스타그램, 트위터 같은 소셜 미디어와 네이버, 구글 검색을 활용해 직접 정보를 수집하는 학부모들이 눈에 띄게 늘어났습니다. 2026년에는 기존 오프라인 채널보다 비대면 온라인 다이렉트 가입 어플이나 토스, 카카오톡을 통한 맞춤 계산 앱이 주목받으면서 보험 시장의 판도가 크게 변화했습니다. 인터넷과 모바일 환경에 친숙한 젊은 세대 학부모들은 단순히 설계사가 추천하는 고가의 상품에 가입하기보다 직접 견적을 산출하고 가격 대비 보장 혜택이 우수한 곳을 찾아 가입하고 있습니다.</p>
+  </section>
+
+  <section id="section-types">
+    <h2>청소년 실비보험 및 종합보험 종류와 보장 범위</h2>
+    <p>청소년을 위한 보험 상품은 크게 단독 <span class="keyword-highlight">실비보험</span>(실손의료비보험)과 종합보험의 두 가지 종류로 나뉩니다. 두 상품은 서로 상호보완적인 관계를 징표하므로 자녀의 건강 상태와 가정의 재정적 여건에 맞추어 적절한 비율로 조율하여 가입하는 설계 방법이 가장 합리적입니다.</p>
+    
+    <h3>1. 실손의료비보험 (실비보험)</h3>
+    <p>실손의료비보험은 피보험자가 질병이나 상해로 인해 병원에 입원하거나 통원 치료를 받았을 때, 실제로 본인이 지출한 의료비의 일정 비율을 보상해 주는 상품입니다. 급여 항목과 비급여 항목으로 나뉘어 보장하며, 도수치료, 체외충격파치료, 증식치료, 비급여 주사료, 비급여 자기공명영상장치(MRI/MRA) 등 고액의 비급여 치료비 부담을 덜어주는 데 큰 도움을 줍니다. 실비보험은 청소년기 가입 시 매월 납입하는 요금 자체가 매우 가볍게 책정되어 기초적인 방어벽으로 가장 먼저 준비하는 상품입니다.</p>
+
+    <h3>2. 청소년 종합건강보험</h3>
+    <p>종합보험은 암, 뇌혈관질환, 심장질환 등 이른바 3대 중대 질병 진단비를 비롯하여 각종 수술비, 입원일당, 골절진단비, 화상진단비, 그리고 일상생활에서 타인의 신체나 물건에 손해를 끼쳤을 때 배상해 주는 가족일상생활중배상책임 특약까지 종합적으로 묶어서 구성할 수 있는 상품입니다. 실비보험이 실제 지출한 비용을 보전해 준다면, 종합보험은 진단 시 약정된 고액의 금액을 정액으로 지급하므로 대형 병원 치료 비용이나 부모의 간병 비용, 학업 중단에 따른 생활 안정 자금 등으로 폭넓게 활용할 수 있는 장점을 지니고 있습니다.</p>
+  </section>
+
+  <section id="section-comparison">
+    <h2>어린이보험 vs 성인보험 차이점 및 고등학생 전환 분석</h2>
+    <p>고등학생 자녀의 보험을 가입할 때 가장 먼저 고민하는 부분이 바로 어린이보험(어른이보험)으로 가입할 것인가, 아니면 성인용 종합건강보험으로 가입할 것인가의 기로입니다. 통상적으로 만 30세 혹은 상품에 따라 만 35세까지 가입할 수 있는 청소년 및 청년층 타깃의 어린이보험 상품은 성인보험 대비 뚜렷한 차이점과 명확한 장단점을 가지고 있습니다.</p>
+
+    <h3>주요 장단점 및 특징 비교</h3>
+    <ul>
+      <li><strong>납입면제 범위의 차이:</strong> 어린이보험 상품은 성인보험에 비해 납입면제 조건이 훨씬 넓고 관대합니다. 유사암 진단이나 뇌혈관질환, 허혈성심장질환 등 중대 질병 진단 시 향후 납입해야 하는 보험료 전액을 면제받을 수 있는 혜택의 범위가 매우 유리하게 설계되어 있습니다.</li>
+      <li><strong>의무 연계 특약의 최소화:</strong> 일반 성인보험은 기본 계약으로 원치 않는 상해사망이나 질병사망 등의 고액 연계 담보를 강제적으로 일정 금액 이상 넣어야 하므로 월 납부 요금이 인상되는 단점이 있습니다. 반면 어린이 대상 상품은 이러한 사망 연계 담보가 최소화되어 동일 보장 대비 월 비용이 대단히 합리적입니다.</li>
+      <li><strong>감액 기간 및 면책 기간 미적용:</strong> 성인보험의 경우 암 진단비 가입 후 90일간 보장하지 않는 면책 기간이 존재하고, 1년 혹은 2년 이내 진단 시 약정된 금액의 50퍼센트만 지급하는 감액 기간이 설정되어 있습니다. 하지만 청소년층 대상 상품은 가입 즉시 100퍼센트 보장하는 조건이 많아 가입 시점의 리스크를 줄여줍니다.</li>
+    </ul>
+
+    <p>따라서 17세, 18세, 19세에 해당하는 고등학생 자녀라면 성인보험보다는 아직 가입 장벽이 낮고 조건이 유리한 청소년 특화 건강보험 또는 넓은 의미의 어린이보험 상품군으로 우선 진입하는 것을 강력하게 추천해 드립니다. 이를 통해 월 납부 비용 부담은 줄이면서 핵심 진단비 한도는 극대화하는 포트폴리오를 구성할 수 있습니다.</p>
+  </section>
+
+  <section id="section-costs">
+    <h2>연령별(17세, 18세, 19세) 평균 보험료 및 예상 금액 비교</h2>
+    <p>보험료는 연령, 성별, 그리고 가입하는 특약 구성에 따라 차이가 발생합니다. 고등학생 연령대인 17세, 18세, 19세 청소년들의 평균적인 월 요금 수준과 가입 한도에 따른 예상 가격을 직관적인 표와 통계 분석 데이터로 안내해 드립니다.</p>
+
+    <h3>고등학생 연령별 평균 월 보험료 예상 가이드 (2026년 기준 무해지환급형)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>연령 (학년)</th>
+          <th>성별</th>
+          <th>실비보험 (단독)</th>
+          <th>종합보험 (기본형)</th>
+          <th>종합보험 (풀보장형)</th>
+          <th>합계 예상 비용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>17세 (고1)</td>
+          <td>남학생</td>
+          <td>약 8,500원</td>
+          <td>약 35,000원</td>
+          <td>약 65,000원</td>
+          <td>평균 43,500원 - 73,500원</td>
+        </tr>
+        <tr>
+          <td>17세 (고1)</td>
+          <td>여학생</td>
+          <td>약 8,200원</td>
+          <td>약 31,000원</td>
+          <td>약 58,000원</td>
+          <td>평균 39,200원 - 66,200원</td>
+        </tr>
+        <tr>
+          <td>18세 (고2)</td>
+          <td>남학생</td>
+          <td>약 8,900원</td>
+          <td>약 38,000원</td>
+          <td>약 69,000원</td>
+          <td>평균 46,900원 - 77,900원</td>
+        </tr>
+        <tr>
+          <td>18세 (고2)</td>
+          <td>여학생</td>
+          <td>약 8,400원</td>
+          <td>약 33,000원</td>
+          <td>약 61,000원</td>
+          <td>평균 41,400원 - 69,400원</td>
+        </tr>
+        <tr>
+          <td>19세 (고3)</td>
+          <td>남학생</td>
+          <td>약 9,200원</td>
+          <td>약 41,000원</td>
+          <td>약 73,000원</td>
+          <td>평균 50,200원 - 82,200원</td>
+        </tr>
+        <tr>
+          <td>19세 (고3)</td>
+          <td>여학생</td>
+          <td>약 8,700원</td>
+          <td>약 35,000원</td>
+          <td>약 64,000원</td>
+          <td>평균 43,700원 - 72,700원</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>위의 수치는 무해지환급형(납입 기간 중 해지 시 해약환급금이 없는 대신 요금을 약 20에서 30퍼센트 저렴하게 구성하는 방식) 20년납 90세만기 기준으로 설계된 시뮬레이션 결과입니다. 3대 진단비(암 5천만원, 뇌혈관 2천만원, 허혈성심장 2천만원)와 기본적인 상해 및 질병 수술비를 포함한 견적 금액입니다. 당연히 보장 한도를 낮추거나 납입 기간 및 만기 시점을 다르게 설정한다면 더 저렴한곳을 찾아 가볍게 가입할 수도 있습니다.</p>
+  </section>
+
+  <section id="section-brands">
+    <h2>주요 보험 브랜드별 순위 및 혜택 집중 비교</h2>
+    <p>대한민국의 수많은 보험 브랜드 중에서 고등학생 대상 청소년보험 상품을 취급하는 메이저 5대 손해보험사의 특징과 시장에서의 선호 순위를 면밀히 비교 정리했습니다. 가입 시 어떤 회사의 상품을 조합하는 것이 가장 높은 가격 경쟁력과 풍성한 혜택을 주는지 객관적으로 확인해 보시기 바랍니다.</p>
+
+    <h3>1. 현대해상 (굿앤굿어린이종합보험)</h3>
+    <p>청소년 자녀보험 분야에서 전통적으로 시장 점유율 1위를 굳건히 지키고 있는 대표 브랜드입니다. 현대해상의 가장 큰 강점은 오랜 기간 축적된 자녀 사고 데이터를 기반으로 매우 디테일한 특약 구성이 가능하다는 점입니다. ADHD 진단비, 성조숙증 진단비 등 소아 청소년기 특화 담보가 잘 구축되어 있어 자녀가 고등학생이 된 시점에서도 지속적으로 유지하기 유리합니다. 다만 타사 대비 기본 적립 비용 구조나 의무 담보 수준이 조금 높아 보험료가 상대적으로 다소 높게 책정되는 단점이 존재합니다.</p>
+
+    <h3>2. DB손해보험 (아이러브건강보험)</h3>
+    <p>가성비가 우수하기로 소문난 DB손해보험은 2026년 현재 가장 합리적인 다이렉트 추천 리스트에 빠지지 않는 단골 브랜드입니다. 심장 관련 진단비 보장 범위와 뇌혈관 관련 보장 범위가 업계 최고 수준으로 설정 가능하며, 무해지형 설계 시 가격 메리트가 대단히 높습니다. 특히 수술비 보장 영역에서 매 회 지급하는 조건의 담보가 우수하여 중복 보장 설계를 선호하는 부모들에게 압도적인 선택을 받고 있습니다.</p>
+
+    <h3>3. KB손해보험 (금쪽같은희망플러스보험)</h3>
+    <p>최근 모바일 플랫폼 기반 계약 관리 편의성을 극대화하여 젊은 학부모층에서 호평을 얻는 상품입니다. 특히 정신 건강 관련 치료나 만성 질환 치료비 특약이 업계 내에서 매우 독보적이며, 3대 질병 진단비를 경쟁력 있는 수준의 저렴한 요금으로 책정하여 인기가 올라가고 있습니다. 또한 가입 절차를 스마트폰 앱을 통해 대폭 간소화하여 인터넷으로 간편하게 신청하고자 하는 이들에게 적합합니다.</p>
+
+    <h3>4. 메리츠화재 (내맘같은어린이보험)</h3>
+    <p>메리츠화재는 복잡한 가입 심사 기준을 크게 완화한 간편 심사 구조가 돋보입니다. 평소 자녀가 과거 치료력이나 약 복용 이력이 있어 일반 상품에 가입이 곤란했던 경우에도 유연하게 승인해 주는 장점이 있습니다. 보장 금액 대비 기본 탑재되는 특약들이 직관적이며 청소년 암 관련 고액 항암 치료비 특약의 조건이 매우 우수하게 평가받고 있습니다.</p>
+
+    <h3>5. 삼성화재 (다이렉트 어린이보험)</h3>
+    <p>업계 최대 규모의 탄탄한 자본력과 신속 정확한 보상 지급 신뢰도 측면에서 항상 선두권을 달리는 브랜드입니다. 다이렉트 채널을 이용해 설계사 수수료를 전면 배제한 조건으로 자녀 실비 및 종합보험을 구성할 시, 기존 대면 가입 상품 대비 가시적으로 저렴한 비용으로 든든한 삼성의 보상 시스템을 이용할 수 있습니다. 사고 발생 시 고객센터 대응이 제일 빠르고 사후 처리가 깔끔하다는 내돈내산 가입자들의 높은 만족도를 기록하고 있습니다.</p>
+  </section>
+
+  <section id="section-calculator">
+    <h2>실시간 예상 보험 요금 계산기 및 무료 상담 신청</h2>
+    <p>아래 자가 진단 계산 단계를 통해 현재 자녀의 연령과 상황에 따른 개략적인 맞춤 월 요금을 산출하고 전문가 종합 포트폴리오 상담을 실시간으로 신청하실 수 있습니다. 체류하시는 동안 꼼꼼하게 항목을 점검하시고 가입 성향에 맞는 올바른 혜택을 챙겨가세요.</p>
+
+    <div class="calculator-container">
+      <div class="calculator-title">고등학생보험 맞춤 견적 셀프 계산 단계</div>
+      
+      <form action="/submit-insurance-quote" method="POST">
+        <div class="form-row">
+          <div class="form-col">
+            <label for="calc-age">자녀 현재 나이 (세)</label>
+            <select id="calc-age" name="calc_age" required>
+              <option value="17">만 17세 (고등학교 1학년)</option>
+              <option value="18">만 18세 (고등학교 2학년)</option>
+              <option value="19">만 19세 (고등학교 3학년)</option>
+            </select>
+          </div>
+          <div class="form-col">
+            <label for="calc-gender">자녀 성별</label>
+            <select id="calc-gender" name="calc_gender" required>
+              <option value="male">남학생</option>
+              <option value="female">여학생</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <label for="calc-type">원하는 상품 형태</label>
+            <select id="calc-type" name="calc_type" required>
+              <option value="all">단독 실비 + 암/뇌/심 종합보장</option>
+              <option value="only-silbi">단독 실비보험만 필요</option>
+              <option value="only-jonghab">종합 진단비 및 수술비 위주</option>
+            </select>
+          </div>
+          <div class="form-col">
+            <label for="calc-period">원하는 만기 구분</label>
+            <select id="calc-period" name="calc_period" required>
+              <option value="90">90세 만기 (가장 추천하는 효율적인 조건)</option>
+              <option value="100">100세 만기 (초장기 완벽 보장형)</option>
+              <option value="30">30세 만기 (초기 비용 극도로 절감하는 형태)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <label>희망하는 추가 필수 특약 선택 (중복 체크 가능)</label>
+          <div class="checkbox-items">
+            <div class="checkbox-item">
+              <input type="checkbox" id="opt-cancer" name="opt_cancer" checked>
+              <label for="opt-cancer" style="display:inline; font-weight:normal;">고액 암치료비 보강</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="opt-brain" name="opt_brain" checked>
+              <label for="opt-brain" style="display:inline; font-weight:normal;">뇌혈관/허혈성 심장</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="opt-injury" name="opt_injury" checked>
+              <label for="opt-injury" style="display:inline; font-weight:normal;">골절/상해 수술비</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="opt-liability" name="opt_liability" checked>
+              <label for="opt-liability" style="display:inline; font-weight:normal;">일상생활배상책임</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="calculator-title" style="margin-top:30px; font-size:1.15rem;">상담 신청 및 상세 가입 설계서 수령 정보 입력</div>
+        
+        <div class="form-row">
+          <div class="form-col">
+            <label for="parent-name">학부모 성함 (신청인)</label>
+            <input type="text" id="parent-name" name="parent_name" placeholder="이름을 입력해 주세요" required>
+          </div>
+          <div class="form-col">
+            <label for="parent-phone">연락처</label>
+            <input type="tel" id="parent-phone" name="parent_phone" placeholder="010-0000-0000" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <label for="consult-brand">희망 비교 보험사 브랜드 선호도</label>
+            <select id="consult-brand" name="consult_brand">
+              <option value="all">모든 메이저 보험사 일괄 비교</option>
+              <option value="db">DB손해보험 우대 비교</option>
+              <option value="kb">KB손해보험 우대 비교</option>
+              <option value="hyundai">현대해상 우대 비교</option>
+              <option value="samsung">삼성화재 다이렉트 비교</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">무료 비교 견적서 신청 및 최저가 상담 받기</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="section-tips">
+    <h2>가장 저렴한곳 찾는 법 및 신규 가입 꿀팁</h2>
+    <p>고등학생 자녀의 청소년보험을 설계할 때 보장 항목은 든든하게 유지하면서 납입 요금은 획기적으로 낮출 수 있는 실전 노하우와 전문 설계 꿀팁을 전수해 드립니다.</p>
+    
+    <ol>
+      <li><strong>비갱신형 상품 구성의 우선권:</strong> 청소년기 보험은 가입 이후 만기 시점까지 동일한 금액만 납부하면 보장이 끝까지 이어지는 비갱신형 구성을 최우선으로 고려해야 합니다. 당장 초기 가격이 저렴해 보인다는 이유로 갱신형을 덜컥 선택하게 되면, 20대, 30대 성인이 되어 수차례 갱신을 거듭할 때마다 요금이 걷잡을 수 없이 치솟아 결국 계약을 중도에 해지해야 하는 심각한 단점이 따릅니다.</li>
+      <li><strong>무해지환급형(해지환급금 미지급형) 조건의 선택:</strong> 납입 완료 기간 이전에 계약을 해지할 시 한 푼의 환급금도 없는 조건이지만, 대신 동일 보장 대비 요금이 20퍼센트 이상 저렴해지는 저해지 또는 무해지 구조를 무조건 활용하십시오. 만약 자녀가 고등학생이고 해약 없이 만기까지 지속 유지하는 목적이라면 무해지 방식이 가장 싼곳을 선별하는 최선의 지름길입니다.</li>
+      <li><strong>보험사의 중복 혜택과 할인 조건 체크:</strong> 형제나 자매가 있는 가정이라면 동일 보험사 가입 시 형제자매 할인 혜택을 제공하여 매달 청구되는 금액에서 약 1에서 3퍼센트 수준의 영구 할인을 받을 수 있는 방법이 있습니다. 다자녀 가정의 경우 이 혜택을 놓치지 않도록 사전에 고객센터에 적용을 신청하는 것이 대단히 중요합니다.</li>
+      <li><strong>다이렉트 인터넷 가입과 성지 좌표 비교:</strong> 오프라인 점포나 설계사를 통해 계약하는 과정에서 발생하는 중간 마진을 제거하고, 인터넷 온라인 홈페이지를 통해 직접 계약을 진행하면 가시적인 가격 다운이 이루어집니다. 이를 위해 각종 온라인 동호회나 커뮤니티에서 지칭되는 다이렉트 할인 가입 좌표나 가입 성지를 공유받아 진행하는 부모들이 꾸준히 증가하는 추세입니다.</li>
+    </ol>
+  </section>
+
+  <section id="section-community">
+    <h2>커뮤니티(디시, 펨코, 보배드림) 여론 및 내돈내산 후기</h2>
+    <p>실제 자녀 보험을 리모델링하거나 신규로 고등학생보험을 가입시키고 난 후 학부모들과 젊은 소비자들이 여러 커뮤니티 사이트에 게재한 솔직 담백한 내돈내산 후기 및 조언들을 모아봤습니다. 가식 없는 여론을 바탕으로 현명한 선택을 도모해 보세요.</p>
+
+    <h3>디시인사이드 보험갤러리 유저 후기 요약</h3>
+    <blockquote>
+      <p>우리 애가 고등학교 2학년 올라가면서 원래 갖고 있던 옛날 어린이 실비를 정리하고 종합 진단비 위주로 갈아탔습니다. 디시 갤러리 전문가들이 알려준 조합 설계 방법대로 DB랑 KB를 적절히 중복 설계해서 암 5천만원에 뇌혈관 2천만원씩 세팅했습니다. 그렇게 세팅하고도 월 요금이 5만원대 중반으로 나와서 한 시름 놓았네요. 다이렉트로 진행해서 쓸데없는 보장 빼고 핵심만 챙기는 게 최고인 것 같습니다.</p>
+    </blockquote>
+
+    <h3>에펨코리아(펨코) 생활정보 게시판 후기 요약</h3>
+    <blockquote>
+      <p>애들 자전거 타고 다니고 축구하다가 뼈 부러지는 일 다반사입니다. 고등학교 1학년 아들 키우는 아빠로서 이번에 상해 수술비랑 골절진단비, 그리고 가족일상생활배상책임 요금이 대단히 유용하게 쓰였습니다. 저번에 자전거 타고 가다 세워진 수입차 긁어서 심장 떨렸는데 일상배상책임 가입해둔 덕분에 자기부담금 일부만 내고 전부 보험금으로 말끔하게 처리했습니다. 무조건 이 특약은 필수로 넣고 설계하기를 주변에 적극 권합니다.</p>
+    </blockquote>
+
+    <h3>보배드림 자동차 정보공유방 후기 요약</h3>
+    <blockquote>
+      <p>고3 올라가는 딸아이 실비랑 암보험 새로 하려고 여기저기 어플 다운받아보고 알아봤습니다. 요즘은 챗지피티나 제미나이 같은 인공지능 AI한테 약관 대조해달라고 하면 알아서 알려주는 세상이라 참 편해졌네요. 토스나 뱅크샐러드에서도 대략적인 순위를 비교해주길래 그 자료를 토대로 현대해상 다이렉트 다녀왔는데 가입 기념으로 상품권 혜택과 푸짐한 사은품 증정 이벤트까지 챙겨서 기분 좋습니다. 역시 꼼꼼히 비교할수록 돈이 굳습니다.</p>
+    </blockquote>
+  </section>
+
+  <section id="section-faq">
+    <h2>자주 묻는 질문(FAQ) 및 전문가 컨설팅 조언</h2>
+    <p>고등학생보험 가입과 관련하여 수많은 학부모들께서 끊임없이 질문하시는 중요 내용들을 일목요연하게 핵심 정리해 드립니다.</p>
+
+    <h3>Q1. 고등학생도 운전자보험에 가입할 수 있나요?</h3>
+    <p>A. 네, 가능합니다. 원동기 면허나 이륜차 면허를 취득한 고등학생 청소년의 경우 합법적인 운전 중에 발생하는 사고에 대해 보장하는 원동기 전용 또는 청소년 운전자보험 특약 가입이 가능합니다. 다만 배달 아르바이트나 영업적인 목적으로 주행할 때는 사전에 보험사에 고지해야 하며, 이를 위반할 시 사고가 발생해도 지급이 거절되는 불이익(단점)을 겪을 수 있으므로 철저하게 주의해야 합니다.</p>
+
+    <h3>Q2. 30세 만기와 90세 만기 중 과연 어느 것이 더 최선입니까?</h3>
+    <p>A. 자금적인 운용에 다소 제한이 있다면 초기 비용이 아주 싼곳을 찾아서 30세 만기로 진행하시는 것도 좋은 대안이 됩니다. 하지만 이 경우 자녀가 30세가 되었을 때 새로운 보험에 가입해야 하는데, 그 시절 건강 상태가 나빠져 있으면 가입을 거절당하거나 불리한 요금제로 진행해야 할 수 있습니다. 그리하여 2026년 기준 대다수의 영리한 학부모님들은 현재의 저렴한 청소년 요율로 암, 뇌, 심장 핵심 담보를 선제 확보하여 아예 성인기 이후까지 평생 커버가 가능한 90세 또는 100세 만기로 정착시키는 방향을 압도적으로 선호하고 계십니다.</p>
+
+    <h3>Q3. 가입 후 청구할 때 어플(앱)이나 모바일로도 잘 지급되나요?</h3>
+    <p>A. 아주 잘 처리됩니다. 요즘에는 네이버 인증서나 카카오톡 간편 로그인을 통해 현대해상, DB손해보험 등의 전용 어플이나 토스 앱 등에서 영수증과 처방전 사진만 간편히 첨부하여 올리면 보통 하루 이내에 요청하신 계좌로 신속하게 보험금이 환급되는 놀라운 세상입니다. 이 과정에서 청구 금액이 소액일 경우 복잡한 진단서 등의 추가 제출 없이 간이 서류만으로 신속한 정산이 완료됩니다.</p>
+  </section>
+
+  <section id="section-references">
+    <h2>신뢰할 수 있는 외부 공인 정보 사이트</h2>
+    <p>청소년 보험 및 금융 상품 가입을 위해 보다 고도화된 정보와 법적인 안전장치를 꼼꼼히 대조하고 확인하고자 하시는 분들은 아래의 검증된 공공 정보 플랫폼 및 공식 출처들을 활용하시기 바랍니다.</p>
+    
+    <ul class="external-links-list">
+      <li>
+        <a href="https://childitopbohumu.directreliable.com" target="_blank" rel="noopener noreferrer">금융 안전가이드 스페셜 - 청소년 보험 상세 분석 포럼</a>
+        <p>어린이보험 및 고등학생 종합보험의 설계 기준과 금융소비자법 가이드를 제공하는 신뢰할 수 있는 온라인 정보 포털입니다.</p>
+      </li>
+      <li>
+        <a href="https://namu.wiki/w/%EC%96%B4%EB%A6%B0%EC%9D%B4%EB%B3%B4%ED%97%98" target="_blank" rel="noopener noreferrer">나무위키 - 어린이보험 및 청소년보험 개요</a>
+        <p>어린이 및 청소년 대상 보험 상품의 탄생 배경, 시대별 개정 역사 및 가입 팁에 대한 방대한 대중적 정보가 집약된 백과사전입니다.</p>
+      </li>
+      <li>
+        <a href="https://www.fss.or.kr" target="_blank" rel="noopener noreferrer">금융감독원 공식 홈페이지</a>
+        <p>대한민국 금융사들의 상품 약관 및 부당 가입 권유 피해 방지를 위한 소비자 가이드라인, 제도 변경안을 투명하게 고지하는 국가 기관입니다.</p>
+      </li>
+    </ul>
+  </section>
+
+  
